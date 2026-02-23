@@ -21,20 +21,6 @@
 #include "semphr.h"
 #include "queue.h"
 
-
-/*************************************************************************
-项目名：基于FreeRTOS的车载电控单元(bootloader)
-实现功能：请看用户手册
-作者：不甘心的咸鱼--闲鱼
-闲鱼号：tb43915564
-修改日期：2025/3/20
-请勿商用！
-注：该工程代码与之前的Keil5_Project_updated_V1.2实现功能一样，
-只不过该工程为FreeRTOS版本。
-**************************************************************************/
-
-
-
 /////////////////////////FreeRTOS任务设置////////////////////////////////////////////////////////////////////////////////////////
 //START 任务
 //设置任务优先级
@@ -111,7 +97,7 @@ static QueueHandle_t 		sig4;	/*us015测量距离队列句柄*/
 #if ifopen
 static SemaphoreHandle_t 	sig5;
 #endif
-static led_d led1;	/*led结构体句柄--不甘心的咸鱼注*/
+static led_d led1;	/*led结构体句柄*/
 static led_d bep;
 static led_d us;
 static volatile u8 flag=8;
@@ -144,7 +130,7 @@ static volatile u8  STA=0;
 	/*由于共计6个中断，设置中断分组为4，4位抢占优先级，0位亚优先级，因为Free不支持亚优先级处理。
 	 由于Free中存在屏蔽优先级阈值的概念，该工程笔者设置为3，因此我们需要调用API函数的中断优先级不能超过3，
 	 所以DMA中断优先级为4，输入捕获中断优先级为5
-	 定时器2中断优先级为6，PB12/PC14外部中断优先级7，PB1外部中断优先级8，从优先级都设置为0--不甘心的咸鱼注*/
+	 定时器2中断优先级为6，PB12/PC14外部中断优先级7，PB1外部中断优先级8，从优先级都设置为0*/
 	/*************************************************************************************************************/
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);//设置中断优先级分组为组4：4位抢占优先级，0位响应优先级 	
 	delay_init();	    //延时函数初始化
@@ -458,7 +444,7 @@ static void iap_task(void *pdata)
 				if(((*(vu32*)(0X20004000+4))&0xFF000000)==0x08000000)//判断是否为0X08XXXXXX.
 					{	 
 						Show_Str(0,120,BLUE,WHITE,"Firmware updating!",16,0);/*打印信息在LCD屏幕上代表正在更新*/
-						FLASH_ErasePage(FLASH_APP1_ADDR);/*先擦除APP区的flash，防止有数据残留--不甘心的咸鱼*/
+						FLASH_ErasePage(FLASH_APP1_ADDR);/*先擦除APP区的flash，防止有数据残留*/
 						iap_write_appbin(FLASH_APP1_ADDR,receive_buff,buff_size);//更新FLASH代码   				
 						printf("固件更新完成!\r\n");	
 						printf("开始执行flash用户代码\r\n");
@@ -470,7 +456,7 @@ static void iap_task(void *pdata)
 									printf("非FLASH应用程序,无法执行!\r\n");  
 							}	
 					}
-					/*如果判断固件失败，先将接收APP数组情况，防止数据残留并重新开启DMA，用于下次更新--不甘心的咸鱼*/
+					/*如果判断固件失败，先将接收APP数组情况，防止数据残留并重新开启DMA，用于下次更新*/
 				else{
 						memset(receive_buff,0,buff_size);   //清空数组
 						MYDMA_Enable(DMA1_Channel5);//开启一次DMA传输，用于下次更新

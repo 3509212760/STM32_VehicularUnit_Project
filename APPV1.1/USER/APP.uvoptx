@@ -101,9 +101,7 @@
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
         <bEvRecOn>1</bEvRecOn>
-        <bSchkAxf>0</bSchkAxf>
-        <bTchkAxf>0</bTchkAxf>
-        <nTsel>1</nTsel>
+        <nTsel>0</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -166,6 +164,12 @@
       <pszMrulep></pszMrulep>
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
+      <DebugDescription>
+        <Enable>1</Enable>
+        <EnableLog>0</EnableLog>
+        <Protocol>2</Protocol>
+        <DbgClock>10000000</DbgClock>
+      </DebugDescription>
     </TargetOption>
   </Target>
 
@@ -215,7 +219,7 @@
 
   <Group>
     <GroupName>HARDWARE</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -235,7 +239,7 @@
 
   <Group>
     <GroupName>SYSTEM</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -267,7 +271,7 @@
 
   <Group>
     <GroupName>CORE</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

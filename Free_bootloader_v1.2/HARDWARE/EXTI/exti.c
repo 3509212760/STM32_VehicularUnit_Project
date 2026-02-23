@@ -6,10 +6,6 @@
 
 /***********************
 项目名：中断驱动函数
-作者：不甘心的咸鱼--闲鱼
-闲鱼号：tb43915564
-修改日期：2025/3/20
-请勿商用！
 ************************/   
 
 //外部中断PC14、PB1/PB12的中断服务程序初始化
@@ -24,7 +20,7 @@ void EXTIX_Init(void)
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC,ENABLE);
 		/*将中断io口设置为输入方式，此处只设置了PC14的输入方式，
 		因为PB1和PB12外部接了上拉电阻，而stm32中，若没有指定输入方式，默认为浮空输入，
-		因此靠外部电路决定--不甘心的咸鱼注*/
+		因此靠外部电路决定*/
 		GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_14;
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //设置成上拉输入
 		GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化

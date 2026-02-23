@@ -1,12 +1,4 @@
 #include "dma.h"
-//////////////////////////////////////////////////////////////////////////////////	 
-//项目名：基于FreeRTOS的车载电控单元(bootloader)
-//实现功能：请看用户手册
-//作者：不甘心的咸鱼--闲鱼
-//闲鱼号：tb43915564
-//修改日期：2025/3/20
-//请勿商用！								  
-//////////////////////////////////////////////////////////////////////////////////  
 
 DMA_InitTypeDef DMA_InitStructure;
 
@@ -61,9 +53,9 @@ void MYDMA_Enable(DMA_Channel_TypeDef*DMA_CHx)
 }	  
 
 #if ifopen
- /*计算DMA接收到的数据--不甘心的咸鱼*/
+ /*计算DMA接收到的数据*/
 uint16_t GetReceivedDataLength(void) {
-    // 计算已接收的数据量--不甘心的咸鱼
+    // 计算已接收的数据量
     return buff_size - DMA_GetCurrDataCounter(DMA1_Channel5);
 }
 #endif

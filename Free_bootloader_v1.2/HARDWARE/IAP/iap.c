@@ -3,13 +3,6 @@
 #include "usart.h"
 #include "stmflash.h"
 #include "iap.h"
-/***********************
-项目名：IAP驱动
-作者：不甘心的咸鱼--闲鱼
-闲鱼号：tb43915564
-修改日期：2025/3/20
-请勿商用！
-************************/  
 
 iapfun jump2app; //表示是iapfun是一个函数指针类型别名，定义了一个函数指针变量叫做jump2app
 u16 iapbuf[512];   //还需要注意的是，经过查看手册发现中容量产品的每个储存块被划分为128个1K字节的页面，大容量的是2K，因此这里需要修改
@@ -43,7 +36,7 @@ void iap_write_appbin(u32 appxaddr,u8 *appbuf,u32 appsize)
 //appxaddr:用户代码起始地址.
 void iap_load_app(u32 appxaddr)
 {
-	/***新更新代码--不甘心的咸鱼******************************************/
+	/***新更新代码******************************************/
     __disable_irq();/*禁用全局中断，防止异常打断*/
 		/*禁用外设*/
     DMA_Cmd(DMA1_Channel5, DISABLE);
