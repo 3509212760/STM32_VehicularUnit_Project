@@ -1,333 +1,334 @@
-»ùÓÚ STM32F103C8 µÄ³µÔØµç¿Øµ¥Ôª£¨VCU£©Æô¶¯ÓëÉý¼¶ÊµÑéÏîÄ¿£¬
-²ÉÓÃ Bootloader + APP Ë«¹¤³Ì¼Ü¹¹¡£ÏîÄ¿ÔÚ Bootloader ²à¼¯³ÉÁË FreeRTOS ¶àÈÎÎñµ÷¶È¡¢PWM µç»ú¿ØÖÆ¡¢³µËÙ²É¼¯ÏÔÊ¾¡¢³¬Éù²¨±ÜÕÏ¡¢MPU6050 ×ËÌ¬Ô¤¾¯ÒÔ¼° IAP ÔÚÏßÉý¼¶¿ò¼Ü£¬
-ÓÃÓÚÑéÖ¤Ç¶ÈëÊ½ÏµÍ³´Ó¡°Æô¶¯¹ÜÀí¡±µ½¡°ÒµÎñ¿ØÖÆ¡±ÔÙµ½¡°¹Ì¼þÉý¼¶¡±µÄÍêÕûÁ´Â·¡£
-1. ÏîÄ¿¸ÅÊö
+åŸºäºŽ STM32F103C8 çš„è½¦è½½ç”µæŽ§å•å…ƒï¼ˆVCUï¼‰å¯åŠ¨ä¸Žå‡çº§å®žéªŒé¡¹ç›®ï¼Œ
+é‡‡ç”¨ Bootloader + APP åŒå·¥ç¨‹æž¶æž„ã€‚é¡¹ç›®åœ¨ Bootloader ä¾§é›†æˆäº† FreeRTOS å¤šä»»åŠ¡è°ƒåº¦ã€PWM ç”µæœºæŽ§åˆ¶ã€è½¦é€Ÿé‡‡é›†æ˜¾ç¤ºã€è¶…å£°æ³¢é¿éšœã€MPU6050 å§¿æ€é¢„è­¦ä»¥åŠ IAP åœ¨çº¿å‡çº§æ¡†æž¶ï¼Œ
+ç”¨äºŽéªŒè¯åµŒå…¥å¼ç³»ç»Ÿä»Žâ€œå¯åŠ¨ç®¡ç†â€åˆ°â€œä¸šåŠ¡æŽ§åˆ¶â€å†åˆ°â€œå›ºä»¶å‡çº§â€çš„å®Œæ•´é“¾è·¯ã€‚
+1. é¡¹ç›®æ¦‚è¿°
 
-±¾²Ö¿â°üº¬Á½¸ö¶ÀÁ¢¹¤³Ì£º
+æœ¬ä»“åº“åŒ…å«ä¸¤ä¸ªç‹¬ç«‹å·¥ç¨‹ï¼š
 
 - `Free_bootloader_v1.2`
-  - Ö÷¹¤³Ì
-  - »ùÓÚ FreeRTOS µÄ Bootloader/VCU ¿ØÖÆ³ÌÐò
-  - ÊµÏÖÏµÍ³³õÊ¼»¯¡¢ÈÎÎñµ÷¶È¡¢¶àÍâÉèÐ­Í¬¡¢¿ØÖÆÂß¼­ºÍ IAP Éý¼¶¿ò¼Ü
+  - ä¸»å·¥ç¨‹
+  - åŸºäºŽ FreeRTOS çš„ Bootloader/VCU æŽ§åˆ¶ç¨‹åº
+  - å®žçŽ°ç³»ç»Ÿåˆå§‹åŒ–ã€ä»»åŠ¡è°ƒåº¦ã€å¤šå¤–è®¾ååŒã€æŽ§åˆ¶é€»è¾‘å’Œ IAP å‡çº§æ¡†æž¶
 
 - `APPV1.1`
-  - ÓÃ»§Ó¦ÓÃÑéÖ¤¹¤³Ì
-  - Ä¿Ç°Îª×îÐ¡ APP Ê¾Àý
-  - ±»Á´½Óµ½ `0x0800F000`
-  - µ±Ç°¹¦ÄÜ½öÎª LED ÉÁË¸£¬ÓÃÓÚÑéÖ¤ APP ·ÖÇø¡¢ÏòÁ¿±íÖØÓ³ÉäºÍÌø×ª»úÖÆ
+  - ç”¨æˆ·åº”ç”¨éªŒè¯å·¥ç¨‹
+  - ç›®å‰ä¸ºæœ€å° APP ç¤ºä¾‹
+  - è¢«é“¾æŽ¥åˆ° `0x0800F000`
+  - å½“å‰åŠŸèƒ½ä»…ä¸º LED é—ªçƒï¼Œç”¨äºŽéªŒè¯ APP åˆ†åŒºã€å‘é‡è¡¨é‡æ˜ å°„å’Œè·³è½¬æœºåˆ¶
 
-Õâ¸öÏîÄ¿µÄÖØµã²»Ö»ÊÇ¡°Ð´Ò»¸ö Bootloader¡±£¬¶øÊÇ°ÑÒÔÏÂ¼¸¸öµäÐÍÇ¶ÈëÊ½ÄÜÁ¦·ÅÔÚÍ¬Ò»¸öÏµÍ³Àï½øÐÐÁªµ÷£º
+è¿™ä¸ªé¡¹ç›®çš„é‡ç‚¹ä¸åªæ˜¯â€œå†™ä¸€ä¸ª Bootloaderâ€ï¼Œè€Œæ˜¯æŠŠä»¥ä¸‹å‡ ä¸ªå…¸åž‹åµŒå…¥å¼èƒ½åŠ›æ”¾åœ¨åŒä¸€ä¸ªç³»ç»Ÿé‡Œè¿›è¡Œè”è°ƒï¼š
 
-- Bootloader Óë APP ½âñî
-- RTOS ¶àÈÎÎñÏµÍ³Éè¼Æ
-- Íâ²¿ÖÐ¶Ï / ¶¨Ê±Æ÷ / PWM / DMA / Flash ²ÁÐ´ / ´®¿ÚÍ¨ÐÅÐ­Í¬
-- ³µËÙ¡¢¾àÀë¡¢×ËÌ¬µÈ¶àÔ´ÊäÈëµÄ×´Ì¬Áª¶¯
-- IAP ¹Ì¼þ½ÓÊÕ¡¢Ð´Èë¡¢Ð£ÑéºÍÌø×ª
-2. ÒÑÊµÏÖ¹¦ÄÜ
+- Bootloader ä¸Ž APP è§£è€¦
+- RTOS å¤šä»»åŠ¡ç³»ç»Ÿè®¾è®¡
+- å¤–éƒ¨ä¸­æ–­ / å®šæ—¶å™¨ / PWM / DMA / Flash æ“¦å†™ / ä¸²å£é€šä¿¡ååŒ
+- è½¦é€Ÿã€è·ç¦»ã€å§¿æ€ç­‰å¤šæºè¾“å…¥çš„çŠ¶æ€è”åŠ¨
+- IAP å›ºä»¶æŽ¥æ”¶ã€å†™å…¥ã€æ ¡éªŒå’Œè·³è½¬
+2. å·²å®žçŽ°åŠŸèƒ½
 
-2.1 Æô¶¯ÓëÏµÍ³¼Ü¹¹
-- »ùÓÚ STM32F103C8 ¹¹½¨ Bootloader + APP Ë«¹¤³Ì½á¹¹
-- APP ¹¤³Ì¶ÀÁ¢Á´½Óµ½ `0x0800F000`
-- APP Æô¶¯Ê±Í¨¹ý `SCB->VTOR = FLASH_BASE | 0xF000` Íê³ÉÏòÁ¿±íÖØÓ³Éä
-- Bootloader ²àÌá¹© Cortex-M ±ê×¼Ìø×ªÄÜÁ¦£º
-  - ¹Ø±ÕÈ«¾ÖÖÐ¶Ï
-  - ¹Ø±ÕÏà¹ØÍâÉè
-  - Çå³ýÖÐ¶Ï±êÖ¾
-  - ÖØÉè MSP
-  - Ìø×ªµ½ APP Reset Handler
+2.1 å¯åŠ¨ä¸Žç³»ç»Ÿæž¶æž„
+- åŸºäºŽ STM32F103C8 æž„å»º Bootloader + APP åŒå·¥ç¨‹ç»“æž„
+- APP å·¥ç¨‹ç‹¬ç«‹é“¾æŽ¥åˆ° `0x0800F000`
+- APP å¯åŠ¨æ—¶é€šè¿‡ `SCB->VTOR = FLASH_BASE | 0xF000` å®Œæˆå‘é‡è¡¨é‡æ˜ å°„
+- Bootloader ä¾§æä¾› Cortex-M æ ‡å‡†è·³è½¬èƒ½åŠ›ï¼š
+  - å…³é—­å…¨å±€ä¸­æ–­
+  - å…³é—­ç›¸å…³å¤–è®¾
+  - æ¸…é™¤ä¸­æ–­æ ‡å¿—
+  - é‡è®¾ MSP
+  - è·³è½¬åˆ° APP Reset Handler
 
-2.2 FreeRTOS ¶àÈÎÎñµ÷¶È
-Bootloader ¹¤³ÌÖÐÒÑÊµÏÖ¶àÈÎÎñÄ£ÐÍ£¬ºËÐÄÈÎÎñ°üÀ¨£º
+2.2 FreeRTOS å¤šä»»åŠ¡è°ƒåº¦
+Bootloader å·¥ç¨‹ä¸­å·²å®žçŽ°å¤šä»»åŠ¡æ¨¡åž‹ï¼Œæ ¸å¿ƒä»»åŠ¡åŒ…æ‹¬ï¼š
 
 - `start_task`
-  - ´´½¨¶ÓÁÐ¡¢ÐÅºÅÁ¿ºÍÒµÎñÈÎÎñ
-  - ³õÊ¼»¯¶¨Ê±Æ÷ÖÐ¶ÏÓëÊäÈë²¶»ñ
+  - åˆ›å»ºé˜Ÿåˆ—ã€ä¿¡å·é‡å’Œä¸šåŠ¡ä»»åŠ¡
+  - åˆå§‹åŒ–å®šæ—¶å™¨ä¸­æ–­ä¸Žè¾“å…¥æ•èŽ·
 
 - `pwm_task`
-  - ¸ù¾Ý°´¼üÊÂ¼þµ÷Õû PWM Êä³ö£¬ÊµÏÖµç»úÕýÏòµµÎ»µ÷½Ú
+  - æ ¹æ®æŒ‰é”®äº‹ä»¶è°ƒæ•´ PWM è¾“å‡ºï¼Œå®žçŽ°ç”µæœºæ­£å‘æ¡£ä½è°ƒèŠ‚
 
 - `reverse_task`
-  - ¸ù¾Ý°´¼üÊÂ¼þµ÷Õû PWM Êä³ö£¬ÊµÏÖµç»ú·´ÏòµµÎ»µ÷½Ú
+  - æ ¹æ®æŒ‰é”®äº‹ä»¶è°ƒæ•´ PWM è¾“å‡ºï¼Œå®žçŽ°ç”µæœºåå‘æ¡£ä½è°ƒèŠ‚
 
 - `Motoshow_task`
-  - ÖÜÆÚË¢ÐÂ³µËÙÏÔÊ¾
+  - å‘¨æœŸåˆ·æ–°è½¦é€Ÿæ˜¾ç¤º
 
 - `us105_task`
-  - ´¦Àí US-015 ·µ»ØÂö¿í²¢»»Ëã¾àÀë
+  - å¤„ç† US-015 è¿”å›žè„‰å®½å¹¶æ¢ç®—è·ç¦»
 
 - `st_task`
-  - ÖÜÆÚ´¥·¢ US-015 ²â¾à
+  - å‘¨æœŸè§¦å‘ US-015 æµ‹è·
 
 - `mpu6050_task`
-  - ¶ÁÈ¡ DMP ×ËÌ¬Êý¾Ý²¢½øÐÐÇã½ÇÅÐ¶¨
+  - è¯»å– DMP å§¿æ€æ•°æ®å¹¶è¿›è¡Œå€¾è§’åˆ¤å®š
 
 - `iap_task`
-  - ÔÚ¿ªÆô IAP ¹¦ÄÜºó´¦Àí DMA ½ÓÊÕÍê³É¡¢¹Ì¼þÐ£Ñé¡¢Flash Ð´ÈëºÍ APP Ìø×ª
+  - åœ¨å¼€å¯ IAP åŠŸèƒ½åŽå¤„ç† DMA æŽ¥æ”¶å®Œæˆã€å›ºä»¶æ ¡éªŒã€Flash å†™å…¥å’Œ APP è·³è½¬
 
-2.3 µç»ú¿ØÖÆ
-- Ê¹ÓÃ `TIM3 CH3` Êä³ö PWM£¬¿ØÖÆÒý½ÅÎª `PB0`
-- Í¨¹ýÍâ²¿ÖÐ¶Ï°´¼üÊÂ¼þ´¥·¢ÕýÏò / ·´ÏòµµÎ»µ÷½Ú
-- Í¨¹ýÐÞ¸Ä `TIM_SetCompare3(TIM3, value)` µ÷ÕûÕ¼¿Õ±È
-- Óöµ½ÕÏ°­Îï»ò×ËÌ¬Òì³£Ê±»áÖ÷¶¯½µµÍÊä³ö£¬ÊµÏÖ°²È«Áª¶¯
+2.3 ç”µæœºæŽ§åˆ¶
+- ä½¿ç”¨ `TIM3 CH3` è¾“å‡º PWMï¼ŒæŽ§åˆ¶å¼•è„šä¸º `PB0`
+- é€šè¿‡å¤–éƒ¨ä¸­æ–­æŒ‰é”®äº‹ä»¶è§¦å‘æ­£å‘ / åå‘æ¡£ä½è°ƒèŠ‚
+- é€šè¿‡ä¿®æ”¹ `TIM_SetCompare3(TIM3, value)` è°ƒæ•´å ç©ºæ¯”
+- é‡åˆ°éšœç¢ç‰©æˆ–å§¿æ€å¼‚å¸¸æ—¶ä¼šä¸»åŠ¨é™ä½Žè¾“å‡ºï¼Œå®žçŽ°å®‰å…¨è”åŠ¨
 
-2.4 ³µËÙ²É¼¯ÓëÏÔÊ¾
-- ³µËÙÂö³åÓÉÍâ²¿ÖÐ¶Ï¼ÆÊý
-- `TIM2` ÒÔ 1 ÃëÖÜÆÚ´¥·¢Ë¢ÐÂ
-- LCD ÉÏÏÔÊ¾ `Speed:xx r/min`
-- µ±Ç°´úÂëÖÐËÙ¶ÈÖµÓÉÖÐ¶ÏÀÛ¼Æ¼ÆÊýºó»»ËãÏÔÊ¾£¬ÊÊºÏ×÷Îª»ô¶û²âËÙ/Âö³å²âËÙÔ­ÐÍÑéÖ¤
+2.4 è½¦é€Ÿé‡‡é›†ä¸Žæ˜¾ç¤º
+- è½¦é€Ÿè„‰å†²ç”±å¤–éƒ¨ä¸­æ–­è®¡æ•°
+- `TIM2` ä»¥ 1 ç§’å‘¨æœŸè§¦å‘åˆ·æ–°
+- LCD ä¸Šæ˜¾ç¤º `Speed:xx r/min`
+- å½“å‰ä»£ç ä¸­é€Ÿåº¦å€¼ç”±ä¸­æ–­ç´¯è®¡è®¡æ•°åŽæ¢ç®—æ˜¾ç¤ºï¼Œé€‚åˆä½œä¸ºéœå°”æµ‹é€Ÿ/è„‰å†²æµ‹é€ŸåŽŸåž‹éªŒè¯
 
-2.5 ³¬Éù²¨±ÜÕÏ
-- Ê¹ÓÃ `US-015` Ä£¿é
-- ´¥·¢Òý½ÅÓÉÈí¼þÊä³öÆô¶¯Âö³å
-- »Ø²¨Âö¿íÍ¨¹ý `TIM1 ÊäÈë²¶»ñ` »ñÈ¡
-- ¾àÀë»»ËãºóÏÔÊ¾µ½ LCD
-- µ±¾àÀëÐ¡ÓÚµÈÓÚ 5 cm Ê±£º
-  - ·äÃùÆ÷Ãù½Ð
-  - LED µãÁÁ
-  - PWM ×Ô¶¯½µËÙ
+2.5 è¶…å£°æ³¢é¿éšœ
+- ä½¿ç”¨ `US-015` æ¨¡å—
+- è§¦å‘å¼•è„šç”±è½¯ä»¶è¾“å‡ºå¯åŠ¨è„‰å†²
+- å›žæ³¢è„‰å®½é€šè¿‡ `TIM1 è¾“å…¥æ•èŽ·` èŽ·å–
+- è·ç¦»æ¢ç®—åŽæ˜¾ç¤ºåˆ° LCD
+- å½“è·ç¦»å°äºŽç­‰äºŽ 5 cm æ—¶ï¼š
+  - èœ‚é¸£å™¨é¸£å«
+  - LED ç‚¹äº®
+  - PWM è‡ªåŠ¨é™é€Ÿ
 
-2.6 ×ËÌ¬Ô¤¾¯
-- ¼¯³É `MPU6050`
-- Ê¹ÓÃÈí¼þ I2C Çý¶¯£¬²¢ÆôÓÃ DMP »ñÈ¡×ËÌ¬½Ç
-- µ±Ç°´úÂëÖ÷ÒªÊ¹ÓÃ `roll` ½Ç½øÐÐÅÐ¶Ï
-- µ±Çã½Ç´óÓÚ 45¡ã Ê±£º
-  - LCD ÏÔÊ¾ `Caution!`
-  - PWM ×Ô¶¯½µËÙ
+2.6 å§¿æ€é¢„è­¦
+- é›†æˆ `MPU6050`
+- ä½¿ç”¨è½¯ä»¶ I2C é©±åŠ¨ï¼Œå¹¶å¯ç”¨ DMP èŽ·å–å§¿æ€è§’
+- å½“å‰ä»£ç ä¸»è¦ä½¿ç”¨ `roll` è§’è¿›è¡Œåˆ¤æ–­
+- å½“å€¾è§’å¤§äºŽ 45Â° æ—¶ï¼š
+  - LCD æ˜¾ç¤º `Caution!`
+  - PWM è‡ªåŠ¨é™é€Ÿ
 
-2.7 IAP ÔÚÏßÉý¼¶¿ò¼Ü
-µ±Ç°¹¤³ÌÒÑ¾­°üº¬ IAP µÄÍêÕû»ù´¡´úÂë£¬µ«Ä¬ÈÏÎ´¿ªÆô¡£
+2.7 IAP åœ¨çº¿å‡çº§æ¡†æž¶
+å½“å‰å·¥ç¨‹å·²ç»åŒ…å« IAP çš„å®Œæ•´åŸºç¡€ä»£ç ï¼Œä½†é»˜è®¤æœªå¼€å¯ã€‚
 
-ÒÑÊµÏÖÄÜÁ¦£º
-- USART1 + DMA ½ÓÊÕ APP ¹Ì¼þ
-- ¹Ì¼þ»º´æ·ÅÖÃÔÚ¹Ì¶¨ RAM ÇøÓò£º`0x20004000`
-- ¶Ô½ÓÊÕÊý¾Ý³¤¶È½øÐÐÍ³¼Æ
-- ¶Ô APP Reset Vector ×öºÏ·¨ÐÔÐ£Ñé
-- °´Ò³²Á³ý Flash ²¢½« APP Ð´Èë `0x0800F000`
-- Ð´ÈëÍê³ÉºóÌø×ªÖ´ÐÐ APP
+å·²å®žçŽ°èƒ½åŠ›ï¼š
+- USART1 + DMA æŽ¥æ”¶ APP å›ºä»¶
+- å›ºä»¶ç¼“å­˜æ”¾ç½®åœ¨å›ºå®š RAM åŒºåŸŸï¼š`0x20004000`
+- å¯¹æŽ¥æ”¶æ•°æ®é•¿åº¦è¿›è¡Œç»Ÿè®¡
+- å¯¹ APP Reset Vector åšåˆæ³•æ€§æ ¡éªŒ
+- æŒ‰é¡µæ“¦é™¤ Flash å¹¶å°† APP å†™å…¥ `0x0800F000`
+- å†™å…¥å®ŒæˆåŽè·³è½¬æ‰§è¡Œ APP
 
-Ä¬ÈÏÅäÖÃ£º
+é»˜è®¤é…ç½®ï¼š
 - `Free_bootloader_v1.2/HARDWARE/IAP/iap.h`
   - `#define ifopen 0`
 
-Ò²¾ÍÊÇËµ£º
-- µ±Ç°²Ö¿âÄ¬ÈÏ±àÒë×´Ì¬ÏÂ£¬IAP ¿ò¼Ü´úÂë´æÔÚ
-- µ«Éý¼¶¹¦ÄÜÄ¬ÈÏ¹Ø±Õ
-- ÈôÐèÒªÑÝÊ¾ÔÚÏßÉý¼¶£¬ÇëÊÖ¶¯¸ÄÎª `1` ²¢ÖØÐÂ±àÒë
+ä¹Ÿå°±æ˜¯è¯´ï¼š
+- å½“å‰ä»“åº“é»˜è®¤ç¼–è¯‘çŠ¶æ€ä¸‹ï¼ŒIAP æ¡†æž¶ä»£ç å­˜åœ¨
+- ä½†å‡çº§åŠŸèƒ½é»˜è®¤å…³é—­
+- è‹¥éœ€è¦æ¼”ç¤ºåœ¨çº¿å‡çº§ï¼Œè¯·æ‰‹åŠ¨æ”¹ä¸º `1` å¹¶é‡æ–°ç¼–è¯‘
 
 ---
-3. µ±Ç°²Ö¿â×´Ì¬ËµÃ÷
+3. å½“å‰ä»“åº“çŠ¶æ€è¯´æ˜Ž
 
-ÕâÒ»²¿·Ö·Ç³£ÖØÒª£¬½¨ÒéÊ¹ÓÃÕßÏÈ¿´¡£
+è¿™ä¸€éƒ¨åˆ†éžå¸¸é‡è¦ï¼Œå»ºè®®ä½¿ç”¨è€…å…ˆçœ‹ã€‚
 
-3.1 Bootloader ²»ÊÇ¡°¿Õ¿Ç¡±
-µ±Ç° `Free_bootloader_v1.2` ²¢²»ÊÇÒ»¸öÖ»¸ºÔðÌø×ªµÄ¼«¼ò Bootloader£¬¶øÊÇÒÑ¾­³ÐÔØÁËÊµ¼Ê³µÔØ¿ØÖÆÂß¼­£¬°üÀ¨£º
-- PWM µç»ú¿ØÖÆ
-- ³µËÙÍ³¼Æ
-- ×ËÌ¬¼ì²â
-- ³¬Éù²¨±ÜÕÏ
-- LCD ×´Ì¬ÏÔÊ¾
-- IAP Éý¼¶¿ò¼Ü
+3.1 Bootloader ä¸æ˜¯â€œç©ºå£³â€
+å½“å‰ `Free_bootloader_v1.2` å¹¶ä¸æ˜¯ä¸€ä¸ªåªè´Ÿè´£è·³è½¬çš„æžç®€ Bootloaderï¼Œè€Œæ˜¯å·²ç»æ‰¿è½½äº†å®žé™…è½¦è½½æŽ§åˆ¶é€»è¾‘ï¼ŒåŒ…æ‹¬ï¼š
+- PWM ç”µæœºæŽ§åˆ¶
+- è½¦é€Ÿç»Ÿè®¡
+- å§¿æ€æ£€æµ‹
+- è¶…å£°æ³¢é¿éšœ
+- LCD çŠ¶æ€æ˜¾ç¤º
+- IAP å‡çº§æ¡†æž¶
 
-Òò´Ë£¬Ëü¸ü½Ó½ü¡°´øÆô¶¯ÓëÉý¼¶ÄÜÁ¦µÄ VCU Ö÷¿Ø³ÌÐò¡±¡£
+å› æ­¤ï¼Œå®ƒæ›´æŽ¥è¿‘â€œå¸¦å¯åŠ¨ä¸Žå‡çº§èƒ½åŠ›çš„ VCU ä¸»æŽ§ç¨‹åºâ€ã€‚
 
-3.2 APP ¹¤³Ìµ±Ç°ÊÇ×îÐ¡ÑéÖ¤³ÌÐò
-`APPV1.1` µ±Ç°ÊµÏÖ·Ç³£¼òµ¥£º
-- ÖØÓ³Éä `VTOR`
-- ³õÊ¼»¯ `PC13 LED`
-- Ã¿ 500 ms ÉÁË¸Ò»´Î
+3.2 APP å·¥ç¨‹å½“å‰æ˜¯æœ€å°éªŒè¯ç¨‹åº
+`APPV1.1` å½“å‰å®žçŽ°éžå¸¸ç®€å•ï¼š
+- é‡æ˜ å°„ `VTOR`
+- åˆå§‹åŒ– `PC13 LED`
+- æ¯ 500 ms é—ªçƒä¸€æ¬¡
 
-ÕâËµÃ÷µ±Ç° APP ¹¤³ÌµÄ¶¨Î»ÊÇ£º
-- ÓÃÓÚÑéÖ¤ APP Á´½ÓµØÖ·ÊÇ·ñÕýÈ·
-- ÓÃÓÚÑéÖ¤ Bootloader Ìø×ªÓëÏòÁ¿±íÖØÓ³ÉäÁ´Â·
-- ²»ÊÇ×îÖÕÒµÎñ APP
+è¿™è¯´æ˜Žå½“å‰ APP å·¥ç¨‹çš„å®šä½æ˜¯ï¼š
+- ç”¨äºŽéªŒè¯ APP é“¾æŽ¥åœ°å€æ˜¯å¦æ­£ç¡®
+- ç”¨äºŽéªŒè¯ Bootloader è·³è½¬ä¸Žå‘é‡è¡¨é‡æ˜ å°„é“¾è·¯
+- ä¸æ˜¯æœ€ç»ˆä¸šåŠ¡ APP
 
-3.3 IAP Ä¬ÈÏ¹Ø±Õ
-Ô´ÂëÖÐ£º
+3.3 IAP é»˜è®¤å…³é—­
+æºç ä¸­ï¼š
 - `ifopen = 0`
-- ËµÃ÷µ±Ç°Ä¬ÈÏ¹¹½¨²¢²»»áÆôÓÃ DMA ÊÕ¹Ì¼þºÍ Flash Ð´ÈëÂß¼­
+- è¯´æ˜Žå½“å‰é»˜è®¤æž„å»ºå¹¶ä¸ä¼šå¯ç”¨ DMA æ”¶å›ºä»¶å’Œ Flash å†™å…¥é€»è¾‘
 
-3.4 Flash ·ÖÇø´æÔÚ¡°ÊµÏÖÒÑÐ´ºÃ£¬µ«Á´½Ó±£»¤»¹Ðè½øÒ»²½¹¤³Ì»¯¡±µÄÇé¿ö
-µ±Ç°ÒÑÈ·ÈÏµÄÐÅÏ¢ÈçÏÂ£º
+3.4 Flash åˆ†åŒºå­˜åœ¨â€œå®žçŽ°å·²å†™å¥½ï¼Œä½†é“¾æŽ¥ä¿æŠ¤è¿˜éœ€è¿›ä¸€æ­¥å·¥ç¨‹åŒ–â€çš„æƒ…å†µ
+å½“å‰å·²ç¡®è®¤çš„ä¿¡æ¯å¦‚ä¸‹ï¼š
 
-- APP Á´½ÓµØÖ·£º`0x0800F000`
-- APP Scatter ÎÄ¼þ£º
+- APP é“¾æŽ¥åœ°å€ï¼š`0x0800F000`
+- APP Scatter æ–‡ä»¶ï¼š
   - `APPV1.1/OBJ/APP.sct`
-  - Á´½ÓÇøÓò´óÐ¡£º`0x1000`£¨4 KB£©
+  - é“¾æŽ¥åŒºåŸŸå¤§å°ï¼š`0x1000`ï¼ˆ4 KBï¼‰
 
-- Bootloader ¹¤³Ìµ±Ç° Scatter ÎÄ¼þ£º
+- Bootloader å·¥ç¨‹å½“å‰ Scatter æ–‡ä»¶ï¼š
   - `Free_bootloader_v1.2/OBJ/PWM.sct`
-  - ÈÔÈ»ÊÇ´Ó `0x08000000` Ê¹ÓÃÕûÆ¬ Flash
+  - ä»ç„¶æ˜¯ä»Ž `0x08000000` ä½¿ç”¨æ•´ç‰‡ Flash
 
-ÕâÒâÎ¶×Å£º
-- ´Ó¡°ÔËÐÐ½á¹û¡±½Ç¶È£¬Bootloader ´úÂë´óÐ¡Èç¹ûÎ´¸²¸Çµ½ `0x0800F000`£¬ÈÔÈ»¿ÉÒÔÓë APP ¹²´æ
-- µ«´Ó¡°¹¤³ÌÔ¼Êø¡±½Ç¶È£¬Bootloader ²à×îºÃÔÙµ¥¶ÀÏÞÖÆÁ´½ÓÇøÓò£¬±ÜÃâºóÐø¹¦ÄÜÔö¼ÓºóÇÖÕ¼ APP Çø
+è¿™æ„å‘³ç€ï¼š
+- ä»Žâ€œè¿è¡Œç»“æžœâ€è§’åº¦ï¼ŒBootloader ä»£ç å¤§å°å¦‚æžœæœªè¦†ç›–åˆ° `0x0800F000`ï¼Œä»ç„¶å¯ä»¥ä¸Ž APP å…±å­˜
+- ä½†ä»Žâ€œå·¥ç¨‹çº¦æŸâ€è§’åº¦ï¼ŒBootloader ä¾§æœ€å¥½å†å•ç‹¬é™åˆ¶é“¾æŽ¥åŒºåŸŸï¼Œé¿å…åŽç»­åŠŸèƒ½å¢žåŠ åŽä¾µå  APP åŒº
 
-½¨ÒéºóÐøÍêÉÆ£º
-- ½« Bootloader µÄÁ´½ÓÇøÓòÏÔÊ½ÏÞÖÆÔÚ APP ÆðÊ¼µØÖ·Ö®Ç°
-- ½« APP Çø´óÐ¡´Ó 4 KB À©Õ¹µ½¸üºÏÀí¿Õ¼ä
-- ¸ù¾ÝÕæÊµÐ¾Æ¬ÈÝÁ¿ÖØÐÂ¹æ»® Boot/App ·ÖÇø
+å»ºè®®åŽç»­å®Œå–„ï¼š
+- å°† Bootloader çš„é“¾æŽ¥åŒºåŸŸæ˜¾å¼é™åˆ¶åœ¨ APP èµ·å§‹åœ°å€ä¹‹å‰
+- å°† APP åŒºå¤§å°ä»Ž 4 KB æ‰©å±•åˆ°æ›´åˆç†ç©ºé—´
+- æ ¹æ®çœŸå®žèŠ¯ç‰‡å®¹é‡é‡æ–°è§„åˆ’ Boot/App åˆ†åŒº
 
 ---
 
-4. Ó²¼þÇåµ¥
+4. ç¡¬ä»¶æ¸…å•
 
-¸ù¾Ýµ±Ç°Ô´ÂëÒÑÈ·ÈÏµÄÓ²¼þÈçÏÂ£º
+æ ¹æ®å½“å‰æºç å·²ç¡®è®¤çš„ç¡¬ä»¶å¦‚ä¸‹ï¼š
 
-Ö÷¿Ø
+ä¸»æŽ§
 - STM32F103C8T6
 
-ÏÔÊ¾Óë½»»¥
-- SPI TFT LCD£¨128x160£©
-- °åÔØ LED
-- ·äÃùÆ÷
-- °´¼üÊäÈë
+æ˜¾ç¤ºä¸Žäº¤äº’
+- SPI TFT LCDï¼ˆ128x160ï¼‰
+- æ¿è½½ LED
+- èœ‚é¸£å™¨
+- æŒ‰é”®è¾“å…¥
 
-´«¸ÐÆ÷
-- US-015 ³¬Éù²¨²â¾àÄ£¿é
-- MPU6050 ÁùÖá´«¸ÐÆ÷
+ä¼ æ„Ÿå™¨
+- US-015 è¶…å£°æ³¢æµ‹è·æ¨¡å—
+- MPU6050 å…­è½´ä¼ æ„Ÿå™¨
 
-¿ØÖÆ¶ÔÏó
-- µç»ú / µçµ÷ PWM ¿ØÖÆ½Ó¿Ú
+æŽ§åˆ¶å¯¹è±¡
+- ç”µæœº / ç”µè°ƒ PWM æŽ§åˆ¶æŽ¥å£
 
-µ÷ÊÔÓëÉý¼¶
-- USART1 ´®¿Ú£¨115200£©
-- CH340 / USB ×ª´®¿ÚÄ£¿é
-- ST-Link£¨ÏÂÔØµ÷ÊÔ£©
-
----
-
-5. ÒÑÈ·ÈÏÒý½ÅÓ³Éä
-
-ÒÔÏÂÄÚÈÝ»ùÓÚµ±Ç°Ô´ÂëÖÐµÄ³õÊ¼»¯´úÂëºÍ×¢ÊÍÕûÀí¡£
-
-5.1 ºËÐÄ¿ØÖÆÓëÖ¸Ê¾
-- LED£º`PC13`
-- ·äÃùÆ÷£º`PB15`
-- PWM Êä³ö£º`PB0` (`TIM3_CH3`)
-- ´®¿Ú TX£º`PA9` (`USART1_TX`)
-- ´®¿Ú RX£º`PA10` (`USART1_RX`)
-
-5.2 °´¼ü / Íâ²¿ÖÐ¶Ï
-- ¼ÓËÙ¼ü£º`PB1` -> `EXTI1`
-- ·´Ïò / ·´ÏòµµÎ»¼ü£º`PB12` -> `EXTI12`
-- ËÙ¶ÈÂö³å / µÚÈýÂ·Íâ²¿ÊäÈë£º`PC14` -> `EXTI14`
-
-ËµÃ÷£º
-- ´úÂëÖÐ `PC14` ÈÔÑØÓÃÁË `KEY2` µÄºêÃüÃû
-- µ«´ÓÊµ¼ÊÂß¼­¿´£¬ËüÔÚÖÐ¶ÏÀï³Ðµ£ÁË¡°ËÙ¶ÈÂö³å¼ÆÊý¡±µÄ½ÇÉ«£¬¸ü½Ó½ü»ô¶û²âËÙÊäÈë
-
-5.3 ³¬Éù²¨Ä£¿é US-015
-- Trigger£º`PA12`
-- Echo / ÊäÈë²¶»ñ£º`PA8` (`TIM1_CH1`)
-
- 5.4 MPU6050£¨Èí¼þ I2C£©
-- SCL£º`PB10`
-- SDA£º`PB11`
-
-5.5 LCD£¨SPI ½Ó¿Ú£©
-¸ù¾Ý LCD/SPI Çý¶¯×¢ÊÍÈ·ÈÏ£º
-- LCD SDA£º`PA7`
-- LCD SCK£º`PA5`
-- LCD BL/LED£º`PB6`
-- LCD A0 / DC£º`PB7`
-- LCD RESET£º`PB8`
-- LCD CS£º`PB9`
+è°ƒè¯•ä¸Žå‡çº§
+- USART1 ä¸²å£ï¼ˆ115200ï¼‰
+- CH340 / USB è½¬ä¸²å£æ¨¡å—
+- ST-Linkï¼ˆä¸‹è½½è°ƒè¯•ï¼‰
 
 ---
 
- 6. Èí¼þ»·¾³
+5. å·²ç¡®è®¤å¼•è„šæ˜ å°„
 
-¿ª·¢¹¤¾ß
+ä»¥ä¸‹å†…å®¹åŸºäºŽå½“å‰æºç ä¸­çš„åˆå§‹åŒ–ä»£ç å’Œæ³¨é‡Šæ•´ç†ã€‚
+
+5.1 æ ¸å¿ƒæŽ§åˆ¶ä¸ŽæŒ‡ç¤º
+- LEDï¼š`PC13`
+- èœ‚é¸£å™¨ï¼š`PB15`
+- PWM è¾“å‡ºï¼š`PB0` (`TIM3_CH3`)
+- ä¸²å£ TXï¼š`PA9` (`USART1_TX`)
+- ä¸²å£ RXï¼š`PA10` (`USART1_RX`)
+
+5.2 æŒ‰é”® / å¤–éƒ¨ä¸­æ–­
+- åŠ é€Ÿé”®ï¼š`PB1` -> `EXTI1`
+- åå‘ / åå‘æ¡£ä½é”®ï¼š`PB12` -> `EXTI12`
+- é€Ÿåº¦è„‰å†² / ç¬¬ä¸‰è·¯å¤–éƒ¨è¾“å…¥ï¼š`PC14` -> `EXTI14`
+
+è¯´æ˜Žï¼š
+- ä»£ç ä¸­ `PC14` ä»æ²¿ç”¨äº† `KEY2` çš„å®å‘½å
+- ä½†ä»Žå®žé™…é€»è¾‘çœ‹ï¼Œå®ƒåœ¨ä¸­æ–­é‡Œæ‰¿æ‹…äº†â€œé€Ÿåº¦è„‰å†²è®¡æ•°â€çš„è§’è‰²ï¼Œæ›´æŽ¥è¿‘éœå°”æµ‹é€Ÿè¾“å…¥
+
+5.3 è¶…å£°æ³¢æ¨¡å— US-015
+- Triggerï¼š`PA12`
+- Echo / è¾“å…¥æ•èŽ·ï¼š`PA8` (`TIM1_CH1`)
+
+ 5.4 MPU6050ï¼ˆè½¯ä»¶ I2Cï¼‰
+- SCLï¼š`PB10`
+- SDAï¼š`PB11`
+
+5.5 LCDï¼ˆSPI æŽ¥å£ï¼‰
+æ ¹æ® LCD/SPI é©±åŠ¨æ³¨é‡Šç¡®è®¤ï¼š
+- LCD SDAï¼š`PA7`
+- LCD SCKï¼š`PA5`
+- LCD BL/LEDï¼š`PB6`
+- LCD A0 / DCï¼š`PB7`
+- LCD RESETï¼š`PB8`
+- LCD CSï¼š`PB9`
+
+---
+
+ 6. è½¯ä»¶çŽ¯å¢ƒ
+
+å¼€å‘å·¥å…·
 - Keil MDK5
 - ARMCC 5
 - STM32F1xx DFP
 
-´úÂë¿ò¼Ü
+ä»£ç æ¡†æž¶
 - STM32 Standard Peripheral Library
 - FreeRTOS
 
-Ð¾Æ¬Óë¼Ü¹¹
+èŠ¯ç‰‡ä¸Žæž¶æž„
 - STM32F103C8
 - ARM Cortex-M3
 
-¹¤³ÌÅäÖÃ
-- Bootloader ¹¤³Ì£º`Free_bootloader_v1.2/USER/project.uvprojx`
-- APP ¹¤³Ì£º`APPV1.1/USER/APP.uvprojx`
+å·¥ç¨‹é…ç½®
+- Bootloader å·¥ç¨‹ï¼š`Free_bootloader_v1.2/USER/project.uvprojx`
+- APP å·¥ç¨‹ï¼š`APPV1.1/USER/APP.uvprojx`
 
 ---
 
-7. ¹¤³Ì½á¹¹
+7. å·¥ç¨‹ç»“æž„
 
 ```text
 STM32_VehicularUnit_Project
-©À©¤©¤ APPV1.1
-©¦   ©À©¤©¤ CORE
-©¦   ©À©¤©¤ HARDWARE
-©¦   ©¦   ©À©¤©¤ CAN
-©¦   ©¦   ©À©¤©¤ KEY
-©¦   ©¦   ©¸©¤©¤ LED
-©¦   ©À©¤©¤ OBJ
-©¦   ©À©¤©¤ STM32F10x_FWLib
-©¦   ©À©¤©¤ SYSTEM
-©¦   ©¦   ©À©¤©¤ delay
-©¦   ©¦   ©À©¤©¤ sys
-©¦   ©¦   ©¸©¤©¤ usart
-©¦   ©¸©¤©¤ USER
-©¦       ©À©¤©¤ APP.uvprojx
-©¦       ©À©¤©¤ main.c
-©¦       ©À©¤©¤ stm32f10x_it.c
-©¦       ©¸©¤©¤ system_stm32f10x.c
-©¦
-©À©¤©¤ Free_bootloader_v1.2
-©¦   ©À©¤©¤ CORE
-©¦   ©À©¤©¤ FreeRTOS
-©¦   ©À©¤©¤ HARDWARE
-©¦   ©¦   ©À©¤©¤ ADC
-©¦   ©¦   ©À©¤©¤ BEEP
-©¦   ©¦   ©À©¤©¤ DMA
-©¦   ©¦   ©À©¤©¤ EXTI
-©¦   ©¦   ©À©¤©¤ IAP
-©¦   ©¦   ©À©¤©¤ KEY
-©¦   ©¦   ©À©¤©¤ LCD
-©¦   ©¦   ©À©¤©¤ LED
-©¦   ©¦   ©À©¤©¤ MPU6050
-©¦   ©¦   ©À©¤©¤ SPI
-©¦   ©¦   ©À©¤©¤ STMFLASH
-©¦   ©¦   ©À©¤©¤ TIMER
-©¦   ©¦   ©¸©¤©¤ us105
-©¦   ©À©¤©¤ OBJ
-©¦   ©À©¤©¤ STM32F10x_FWLib
-©¦   ©À©¤©¤ SYSTEM
-©¦   ©¦   ©À©¤©¤ delay
-©¦   ©¦   ©À©¤©¤ sys
-©¦   ©¦   ©¸©¤©¤ usart
-©¦   ©¸©¤©¤ USER
-©¦       ©À©¤©¤ project.uvprojx
-©¦       ©À©¤©¤ main.c
-©¦       ©À©¤©¤ stm32f10x_it.c
-©¦       ©¸©¤©¤ system_stm32f10x.c
-©¦
-©¸©¤©¤ README.md
-8. ¹¹½¨Óë±àÒë
-8.1 ±àÒë Bootloader
+â”œâ”€â”€ APPV1.1
+â”‚   â”œâ”€â”€ CORE
+â”‚   â”œâ”€â”€ HARDWARE
+â”‚   â”‚   â”œâ”€â”€ CAN
+â”‚   â”‚   â”œâ”€â”€ KEY
+â”‚   â”‚   â””â”€â”€ LED
+â”‚   â”œâ”€â”€ OBJ
+â”‚   â”œâ”€â”€ STM32F10x_FWLib
+â”‚   â”œâ”€â”€ SYSTEM
+â”‚   â”‚   â”œâ”€â”€ delay
+â”‚   â”‚   â”œâ”€â”€ sys
+â”‚   â”‚   â””â”€â”€ usart
+â”‚   â””â”€â”€ USER
+â”‚       â”œâ”€â”€ APP.uvprojx
+â”‚       â”œâ”€â”€ main.c
+â”‚       â”œâ”€â”€ stm32f10x_it.c
+â”‚       â””â”€â”€ system_stm32f10x.c
+â”‚
+â”œâ”€â”€ Free_bootloader_v1.2
+â”‚   â”œâ”€â”€ CORE
+â”‚   â”œâ”€â”€ FreeRTOS
+â”‚   â”œâ”€â”€ HARDWARE
+â”‚   â”‚   â”œâ”€â”€ ADC
+â”‚   â”‚   â”œâ”€â”€ BEEP
+â”‚   â”‚   â”œâ”€â”€ DMA
+â”‚   â”‚   â”œâ”€â”€ EXTI
+â”‚   â”‚   â”œâ”€â”€ IAP
+â”‚   â”‚   â”œâ”€â”€ KEY
+â”‚   â”‚   â”œâ”€â”€ LCD
+â”‚   â”‚   â”œâ”€â”€ LED
+â”‚   â”‚   â”œâ”€â”€ MPU6050
+â”‚   â”‚   â”œâ”€â”€ SPI
+â”‚   â”‚   â”œâ”€â”€ STMFLASH
+â”‚   â”‚   â”œâ”€â”€ TIMER
+â”‚   â”‚   â””â”€â”€ us105
+â”‚   â”œâ”€â”€ OBJ
+â”‚   â”œâ”€â”€ STM32F10x_FWLib
+â”‚   â”œâ”€â”€ SYSTEM
+â”‚   â”‚   â”œâ”€â”€ delay
+â”‚   â”‚   â”œâ”€â”€ sys
+â”‚   â”‚   â””â”€â”€ usart
+â”‚   â””â”€â”€ USER
+â”‚       â”œâ”€â”€ project.uvprojx
+â”‚       â”œâ”€â”€ main.c
+â”‚       â”œâ”€â”€ stm32f10x_it.c
+â”‚       â””â”€â”€ system_stm32f10x.c
+â”‚
+â””â”€â”€ README.md
 
-Ê¹ÓÃ Keil ´ò¿ª£º
+8. æž„å»ºä¸Žç¼–è¯‘
+8.1 ç¼–è¯‘ Bootloader
+
+ä½¿ç”¨ Keil æ‰“å¼€ï¼š
 
 Free_bootloader_v1.2/USER/project.uvprojx
 
-¼ì²éÐ¾Æ¬ÐÍºÅÊÇ·ñÎª£º
+æ£€æŸ¥èŠ¯ç‰‡åž‹å·æ˜¯å¦ä¸ºï¼š
 
 STM32F103C8
 
-È·ÈÏ Pack ÒÑ°²×°£º
+ç¡®è®¤ Pack å·²å®‰è£…ï¼š
 
 Keil.STM32F1xx_DFP
 
-Ö±½Ó±àÒë¹¤³Ì
+ç›´æŽ¥ç¼–è¯‘å·¥ç¨‹
 
-µ±Ç°±àÒë²úÎïÐÅÏ¢£¨ÒÑ´Ó build log È·ÈÏ£©£º
+å½“å‰ç¼–è¯‘äº§ç‰©ä¿¡æ¯ï¼ˆå·²ä»Ž build log ç¡®è®¤ï¼‰ï¼š
 
-Bootloader Êä³öÎÄ¼þÃû£ºPWM
+Bootloader è¾“å‡ºæ–‡ä»¶åï¼šPWM
 
 Program Size:
 
@@ -339,21 +340,21 @@ RW-data = 316
 
 ZI-data = 12956
 
-8.2 ±àÒë APP
+8.2 ç¼–è¯‘ APP
 
-Ê¹ÓÃ Keil ´ò¿ª£º
+ä½¿ç”¨ Keil æ‰“å¼€ï¼š
 
 APPV1.1/USER/APP.uvprojx
 
-¼ì²é APP Á´½ÓµØÖ·ÊÇ·ñÎª£º
+æ£€æŸ¥ APP é“¾æŽ¥åœ°å€æ˜¯å¦ä¸ºï¼š
 
 0x0800F000
 
-±àÒë¹¤³Ì
+ç¼–è¯‘å·¥ç¨‹
 
-µ±Ç°±àÒë²úÎïÐÅÏ¢£¨ÒÑ´Ó build log È·ÈÏ£©£º
+å½“å‰ç¼–è¯‘äº§ç‰©ä¿¡æ¯ï¼ˆå·²ä»Ž build log ç¡®è®¤ï¼‰ï¼š
 
-APP Êä³öÎÄ¼þÃû£ºAPP
+APP è¾“å‡ºæ–‡ä»¶åï¼šAPP
 
 Program Size:
 
@@ -365,176 +366,176 @@ RW-data = 44
 
 ZI-data = 1636
 
-ËµÃ÷£º
+è¯´æ˜Žï¼š
 
-µ±Ç° DMA ½ÓÊÕ»º´æ buff_size = 3644
+å½“å‰ DMA æŽ¥æ”¶ç¼“å­˜ buff_size = 3644
 
-ÕýºÃ¶ÔÓ¦ APP µÄ Code + RO-data = 3644
+æ­£å¥½å¯¹åº” APP çš„ Code + RO-data = 3644
 
-ËµÃ÷×÷ÕßÊÇ°´µ±Ç° APP Ê¾Àý´óÐ¡À´ÅäÖÃ IAP ½ÓÊÕ»º´æµÄ
+è¯´æ˜Žä½œè€…æ˜¯æŒ‰å½“å‰ APP ç¤ºä¾‹å¤§å°æ¥é…ç½® IAP æŽ¥æ”¶ç¼“å­˜çš„
 
-9. ÉÕÂ¼ÓëÔËÐÐ
-9.1 ÉÕÂ¼ Bootloader
+9. çƒ§å½•ä¸Žè¿è¡Œ
+9.1 çƒ§å½• Bootloader
 
-ÓÅÏÈÉÕÂ¼ Free_bootloader_v1.2 ¹¤³Ìµ½Ö÷¿Ø¡£
+ä¼˜å…ˆçƒ§å½• Free_bootloader_v1.2 å·¥ç¨‹åˆ°ä¸»æŽ§ã€‚
 
-¿ÉÑ¡·½Ê½£º
+å¯é€‰æ–¹å¼ï¼š
 
 ST-Link
 
 J-Link
 
-Keil ÏÂÔØ
+Keil ä¸‹è½½
 
-9.2 ÉÕÂ¼ APP
+9.2 çƒ§å½• APP
 
-ÈôÖ»ÏëÑéÖ¤ APP ¶ÀÁ¢ÔËÐÐ£¬¿ÉÖ±½ÓÉÕÂ¼ APPV1.1 µ½ 0x0800F000¡£
+è‹¥åªæƒ³éªŒè¯ APP ç‹¬ç«‹è¿è¡Œï¼Œå¯ç›´æŽ¥çƒ§å½• APPV1.1 åˆ° 0x0800F000ã€‚
 
-×¢Òâ£º
+æ³¨æ„ï¼š
 
-ÐèÒªÈ·±£ÏÂÔØµØÖ·Óë Scatter ÎÄ¼þÒ»ÖÂ
+éœ€è¦ç¡®ä¿ä¸‹è½½åœ°å€ä¸Ž Scatter æ–‡ä»¶ä¸€è‡´
 
-APP ÔËÐÐºó»áÖ´ÐÐ VTOR ÖØÓ³Éä£¬·ñÔòÖÐ¶ÏÏòÁ¿»áÒì³£
+APP è¿è¡ŒåŽä¼šæ‰§è¡Œ VTOR é‡æ˜ å°„ï¼Œå¦åˆ™ä¸­æ–­å‘é‡ä¼šå¼‚å¸¸
 
-9.3 µ±Ç°Ä¬ÈÏÔËÐÐÐ§¹û
+9.3 å½“å‰é»˜è®¤è¿è¡Œæ•ˆæžœ
 
-Bootloader ¹¤³ÌÔËÐÐºó£º
+Bootloader å·¥ç¨‹è¿è¡ŒåŽï¼š
 
-³õÊ¼»¯ LCD¡¢MPU6050¡¢³¬Éù²¨¡¢PWM¡¢°´¼üÖÐ¶ÏµÈ
+åˆå§‹åŒ– LCDã€MPU6050ã€è¶…å£°æ³¢ã€PWMã€æŒ‰é”®ä¸­æ–­ç­‰
 
-½øÈë FreeRTOS µ÷¶È
+è¿›å…¥ FreeRTOS è°ƒåº¦
 
-ÏìÓ¦°´¼üÊÂ¼þ¸Ä±ä PWM Êä³ö
+å“åº”æŒ‰é”®äº‹ä»¶æ”¹å˜ PWM è¾“å‡º
 
-ÖÜÆÚÏÔÊ¾ËÙ¶È¡¢¾àÀë¡¢½Ç¶È
+å‘¨æœŸæ˜¾ç¤ºé€Ÿåº¦ã€è·ç¦»ã€è§’åº¦
 
-Âú×ããÐÖµÊ±´¥·¢·äÃùÆ÷¡¢LED ºÍ¼õËÙÂß¼­
+æ»¡è¶³é˜ˆå€¼æ—¶è§¦å‘èœ‚é¸£å™¨ã€LED å’Œå‡é€Ÿé€»è¾‘
 
-APP ¹¤³ÌÔËÐÐºó£º
+APP å·¥ç¨‹è¿è¡ŒåŽï¼š
 
-PC13 LED ÒÔ 500 ms ÖÜÆÚÉÁË¸
+PC13 LED ä»¥ 500 ms å‘¨æœŸé—ªçƒ
 
-10. ÈçºÎ¿ªÆô IAP Éý¼¶¹¦ÄÜ
-µÚÒ»²½£º´ò¿ª IAP ¿ª¹Ø
+10. å¦‚ä½•å¼€å¯ IAP å‡çº§åŠŸèƒ½
+ç¬¬ä¸€æ­¥ï¼šæ‰“å¼€ IAP å¼€å…³
 
-ÐÞ¸ÄÎÄ¼þ£º
+ä¿®æ”¹æ–‡ä»¶ï¼š
 
 Free_bootloader_v1.2/HARDWARE/IAP/iap.h
 
-½«£º
+å°†ï¼š
 
 #define ifopen 0
 
-¸ÄÎª£º
+æ”¹ä¸ºï¼š
 
 #define ifopen 1
-µÚ¶þ²½£ºÖØÐÂ±àÒë Bootloader
+ç¬¬äºŒæ­¥ï¼šé‡æ–°ç¼–è¯‘ Bootloader
 
-ÖØÐÂ±àÒëºó£¬DMA¡¢½ÓÊÕ»º´æºÍ IAP ÈÎÎñ»á²ÎÓë¹¹½¨¡£
+é‡æ–°ç¼–è¯‘åŽï¼ŒDMAã€æŽ¥æ”¶ç¼“å­˜å’Œ IAP ä»»åŠ¡ä¼šå‚ä¸Žæž„å»ºã€‚
 
-µÚÈý²½£ºÍ¨¹ý USART1 + DMA ½ÓÊÕ¹Ì¼þ
+ç¬¬ä¸‰æ­¥ï¼šé€šè¿‡ USART1 + DMA æŽ¥æ”¶å›ºä»¶
 
-µ±Ç°Âß¼­Îª£º
+å½“å‰é€»è¾‘ä¸ºï¼š
 
-DMA Í¨µÀ£ºDMA1_Channel5
+DMA é€šé“ï¼šDMA1_Channel5
 
-Êý¾ÝÔ´£ºUSART1->DR
+æ•°æ®æºï¼šUSART1->DR
 
-»º³åÇøµØÖ·£º0x20004000
+ç¼“å†²åŒºåœ°å€ï¼š0x20004000
 
-½ÓÊÕ³¤¶È£ºbuff_size
+æŽ¥æ”¶é•¿åº¦ï¼šbuff_size
 
-µÚËÄ²½£ºÉý¼¶Á÷³Ì
+ç¬¬å››æ­¥ï¼šå‡çº§æµç¨‹
 
-DMA ½ÓÊÕÍê³Éºó´¥·¢ÖÐ¶Ï
+DMA æŽ¥æ”¶å®ŒæˆåŽè§¦å‘ä¸­æ–­
 
-iap_task ±»ÐÅºÅÁ¿»½ÐÑ
+iap_task è¢«ä¿¡å·é‡å”¤é†’
 
-Ð£Ñé APP ÏòÁ¿±í
+æ ¡éªŒ APP å‘é‡è¡¨
 
-²Á³ý APP Ê×µØÖ·Ò³
+æ“¦é™¤ APP é¦–åœ°å€é¡µ
 
-°´Ò³Ð´Èë APP ¹Ì¼þ
+æŒ‰é¡µå†™å…¥ APP å›ºä»¶
 
-ÔÙ´ÎÐ£Ñé Reset Vector
+å†æ¬¡æ ¡éªŒ Reset Vector
 
-Ìø×ªÖ´ÐÐ APP
+è·³è½¬æ‰§è¡Œ APP
 
-11. ÏîÄ¿ÖÐµÄ¹Ø¼üÉè¼Æµã
-11.1 Bootloader / APP ½âñî
+11. é¡¹ç›®ä¸­çš„å…³é”®è®¾è®¡ç‚¹
+11.1 Bootloader / APP è§£è€¦
 
-APP ¹¤³Ìµ¥¶À±àÒë¡¢µ¥¶ÀÁ´½Ó¡¢µ¥¶ÀÔËÐÐ£¬¾ß±¸¶ÀÁ¢Èë¿ÚÓëÏòÁ¿±í£¬²»ÒÀÀµ Bootloader Ô´ÎÄ¼þ¡£
+APP å·¥ç¨‹å•ç‹¬ç¼–è¯‘ã€å•ç‹¬é“¾æŽ¥ã€å•ç‹¬è¿è¡Œï¼Œå…·å¤‡ç‹¬ç«‹å…¥å£ä¸Žå‘é‡è¡¨ï¼Œä¸ä¾èµ– Bootloader æºæ–‡ä»¶ã€‚
 
-11.2 RTOS ÓëÖÐ¶ÏÐ­Í¬
+11.2 RTOS ä¸Žä¸­æ–­ååŒ
 
-ÏîÄ¿ÖÐ²ÉÓÃÁË½ÏÇåÎúµÄ¡°ÖÐ¶ÏÖ»×öÊÂ¼þ´¥·¢£¬ÈÎÎñ×öÒµÎñ´¦Àí¡±µÄ½á¹¹£º
+é¡¹ç›®ä¸­é‡‡ç”¨äº†è¾ƒæ¸…æ™°çš„â€œä¸­æ–­åªåšäº‹ä»¶è§¦å‘ï¼Œä»»åŠ¡åšä¸šåŠ¡å¤„ç†â€çš„ç»“æž„ï¼š
 
-EXTI / TIM / DMA ISR ÖÐÖ»×ö¼ÆÊý¡¢Í¶µÝ¡¢ÊÍ·ÅÐÅºÅÁ¿
+EXTI / TIM / DMA ISR ä¸­åªåšè®¡æ•°ã€æŠ•é€’ã€é‡Šæ”¾ä¿¡å·é‡
 
-Êµ¼ÊµÄÏÔÊ¾¡¢¿ØÖÆ¡¢Éý¼¶´¦Àí·Åµ½ÈÎÎñÖÐÖ´ÐÐ
+å®žé™…çš„æ˜¾ç¤ºã€æŽ§åˆ¶ã€å‡çº§å¤„ç†æ”¾åˆ°ä»»åŠ¡ä¸­æ‰§è¡Œ
 
-ÕâÊÇÒ»¸ö±È½ÏÊÊºÏÃæÊÔÕ¹Ê¾µÄÉè¼Æµã¡£
+è¿™æ˜¯ä¸€ä¸ªæ¯”è¾ƒé€‚åˆé¢è¯•å±•ç¤ºçš„è®¾è®¡ç‚¹ã€‚
 
-11.3 IAP »ùÓÚµØÖ·ºÏ·¨ÐÔÅÐ¶Ï
+11.3 IAP åŸºäºŽåœ°å€åˆæ³•æ€§åˆ¤æ–­
 
-´úÂëÖÐÊ¹ÓÃÁËÁ½Àà¹Ø¼üÐ£Ñé£º
+ä»£ç ä¸­ä½¿ç”¨äº†ä¸¤ç±»å…³é”®æ ¡éªŒï¼š
 
-Õ»¶¥µØÖ·ÊÇ·ñÂäÔÚ SRAM ºÏ·¨Çø
+æ ˆé¡¶åœ°å€æ˜¯å¦è½åœ¨ SRAM åˆæ³•åŒº
 
-Reset Vector ÊÇ·ñÂäÔÚ Flash µØÖ·¿Õ¼ä
+Reset Vector æ˜¯å¦è½åœ¨ Flash åœ°å€ç©ºé—´
 
-ÕâÄÜ±ÜÃâ´íÎó¹Ì¼þ±»ÎóÖ´ÐÐ¡£
+è¿™èƒ½é¿å…é”™è¯¯å›ºä»¶è¢«è¯¯æ‰§è¡Œã€‚
 
-11.4 ¹Ì¶¨ RAM »º³åÇø
+11.4 å›ºå®š RAM ç¼“å†²åŒº
 
-APP ½ÓÊÕ»º´æ±»ÏÔÊ½·ÅÔÚ£º
+APP æŽ¥æ”¶ç¼“å­˜è¢«æ˜¾å¼æ”¾åœ¨ï¼š
 
 0x20004000
 
-Ä¿µÄÊÇ±ÜÃâ Bootloader Óë APP µÄ RAM Ê¹ÓÃÖØµþ¡£
-ÕâÊÇÒ»¸ö·Ç³£µäÐÍµÄÂã»ú / Bootloader ¹¤³ÌÉè¼ÆÏ¸½Ú¡£
+ç›®çš„æ˜¯é¿å… Bootloader ä¸Ž APP çš„ RAM ä½¿ç”¨é‡å ã€‚
+è¿™æ˜¯ä¸€ä¸ªéžå¸¸å…¸åž‹çš„è£¸æœº / Bootloader å·¥ç¨‹è®¾è®¡ç»†èŠ‚ã€‚
 
-12. ÒÑÖªÎÊÌâÓëºóÐø¸Ä½ø½¨Òé
-ÒÑÖªÎÊÌâ
+12. å·²çŸ¥é—®é¢˜ä¸ŽåŽç»­æ”¹è¿›å»ºè®®
+å·²çŸ¥é—®é¢˜
 
-Bootloader µ±Ç°Á´½Ó½Å±¾ÈÔÊ¹ÓÃÕûÆ¬ Flash£¬½¨ÒéÏÔÊ½ÏÞÖÆÎª Boot ÇøÓò
+Bootloader å½“å‰é“¾æŽ¥è„šæœ¬ä»ä½¿ç”¨æ•´ç‰‡ Flashï¼Œå»ºè®®æ˜¾å¼é™åˆ¶ä¸º Boot åŒºåŸŸ
 
-APP µ±Ç°½öÎª LED ÉÁË¸Ê¾Àý£¬ÒµÎñ¹¦ÄÜÉÐÎ´Ç¨ÒÆµ½ÓÃ»§ APP
+APP å½“å‰ä»…ä¸º LED é—ªçƒç¤ºä¾‹ï¼Œä¸šåŠ¡åŠŸèƒ½å°šæœªè¿ç§»åˆ°ç”¨æˆ· APP
 
-ifopen Ä¬ÈÏ¹Ø±Õ£¬IAP ¹¦ÄÜÎ´Ä¬ÈÏÆôÓÃ
+ifopen é»˜è®¤å…³é—­ï¼ŒIAP åŠŸèƒ½æœªé»˜è®¤å¯ç”¨
 
-²¿·Ö×¢ÊÍÖÐ¡°16 KB Æ«ÒÆ¡±ÓëÊµ¼ÊµØÖ· 0x0800F000 ²»ÍêÈ«Ò»ÖÂ£¬ºóÐø½¨ÒéÍ³Ò»
+éƒ¨åˆ†æ³¨é‡Šä¸­â€œ16 KB åç§»â€ä¸Žå®žé™…åœ°å€ 0x0800F000 ä¸å®Œå…¨ä¸€è‡´ï¼ŒåŽç»­å»ºè®®ç»Ÿä¸€
 
-µ±Ç° APP ¿Õ¼ä½ö 4 KB£¬ÊÊºÏÑÝÊ¾£¬²»ÊÊºÏ³ÐÔØ¸´ÔÓÒµÎñ
+å½“å‰ APP ç©ºé—´ä»… 4 KBï¼Œé€‚åˆæ¼”ç¤ºï¼Œä¸é€‚åˆæ‰¿è½½å¤æ‚ä¸šåŠ¡
 
-½¨ÒéÓÅ»¯
+å»ºè®®ä¼˜åŒ–
 
-ÖØÐÂ¹æ»® Flash ·ÖÇø
+é‡æ–°è§„åˆ’ Flash åˆ†åŒº
 
-½« Bootloader ¾«¼òÎªÆô¶¯¹ÜÀí + Éý¼¶¹ÜÀí
+å°† Bootloader ç²¾ç®€ä¸ºå¯åŠ¨ç®¡ç† + å‡çº§ç®¡ç†
 
-½«³µÔØ¿ØÖÆÒµÎñÇ¨ÒÆµ½ APP ¹¤³Ì
+å°†è½¦è½½æŽ§åˆ¶ä¸šåŠ¡è¿ç§»åˆ° APP å·¥ç¨‹
 
-Ôö¼Ó´®¿ÚÉý¼¶Ð­Òé£¨Ö¡Í·¡¢³¤¶È¡¢CRC¡¢°æ±¾ºÅ£©
+å¢žåŠ ä¸²å£å‡çº§åè®®ï¼ˆå¸§å¤´ã€é•¿åº¦ã€CRCã€ç‰ˆæœ¬å·ï¼‰
 
-Ôö¼Ó¹Ì¼þÍêÕûÐÔÐ£ÑéÓë»Ø¹ö²ßÂÔ
+å¢žåŠ å›ºä»¶å®Œæ•´æ€§æ ¡éªŒä¸Žå›žæ»šç­–ç•¥
 
-Ôö¼Ó°æ±¾ÐÅÏ¢Çø / ²ÎÊýÇø / ÈÕÖ¾Çø
+å¢žåŠ ç‰ˆæœ¬ä¿¡æ¯åŒº / å‚æ•°åŒº / æ—¥å¿—åŒº
 
-²¹³äÉÏÎ»»úÉý¼¶¹¤¾ß»ò Python ½Å±¾
+è¡¥å……ä¸Šä½æœºå‡çº§å·¥å…·æˆ– Python è„šæœ¬
 
-13. ÊÊºÏÕ¹Ê¾µÄÏîÄ¿ÁÁµã
+13. é€‚åˆå±•ç¤ºçš„é¡¹ç›®äº®ç‚¹
 
-Èç¹ûÄã×¼±¸ÓÃÕâ¸öÏîÄ¿Ð´¼òÀú»ò½²ÏîÄ¿£¬Õâ¼¸¸öµã·Ç³£ÖµµÃÇ¿µ÷£º
+å¦‚æžœä½ å‡†å¤‡ç”¨è¿™ä¸ªé¡¹ç›®å†™ç®€åŽ†æˆ–è®²é¡¹ç›®ï¼Œè¿™å‡ ä¸ªç‚¹éžå¸¸å€¼å¾—å¼ºè°ƒï¼š
 
-»ùÓÚ STM32F103C8 ÊµÏÖ Bootloader + APP Ë«¹¤³Ì¼Ü¹¹
+åŸºäºŽ STM32F103C8 å®žçŽ° Bootloader + APP åŒå·¥ç¨‹æž¶æž„
 
-Í¨¹ý FreeRTOS ¹¹½¨¶àÈÎÎñ³µÔØ¿ØÖÆÔ­ÐÍ
+é€šè¿‡ FreeRTOS æž„å»ºå¤šä»»åŠ¡è½¦è½½æŽ§åˆ¶åŽŸåž‹
 
-Ê¹ÓÃ EXTI¡¢TIM¡¢PWM¡¢DMA¡¢USART¡¢Flash ²ÁÐ´µÈÍâÉèÐÎ³ÉÍêÕû¿ØÖÆ±Õ»·
+ä½¿ç”¨ EXTIã€TIMã€PWMã€DMAã€USARTã€Flash æ“¦å†™ç­‰å¤–è®¾å½¢æˆå®Œæ•´æŽ§åˆ¶é—­çŽ¯
 
-ÊµÏÖ³¬Éù²¨±ÜÕÏ¡¢×ËÌ¬Ô¤¾¯Óëµç»ú½µËÙÁª¶¯
+å®žçŽ°è¶…å£°æ³¢é¿éšœã€å§¿æ€é¢„è­¦ä¸Žç”µæœºé™é€Ÿè”åŠ¨
 
-ÊµÏÖ IAP ÔÚÏßÉý¼¶¿ò¼ÜÓë Cortex-M Ìø×ª»úÖÆ
+å®žçŽ° IAP åœ¨çº¿å‡çº§æ¡†æž¶ä¸Ž Cortex-M è·³è½¬æœºåˆ¶
 
-Í¨¹ý APP ¶ÀÁ¢Á´½ÓºÍ VTOR ÖØÓ³ÉäÍê³ÉÓÃ»§³ÌÐò½âñî
+é€šè¿‡ APP ç‹¬ç«‹é“¾æŽ¥å’Œ VTOR é‡æ˜ å°„å®Œæˆç”¨æˆ·ç¨‹åºè§£è€¦
